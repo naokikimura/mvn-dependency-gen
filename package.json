@@ -1,0 +1,19 @@
+{
+  "name": "search-dependency",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naokikimura/search-dependency.git"
+  },
+  "author": "Naoki Kimura <n.kimura.cap@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naokikimura/search-dependency/issues"
+  },
+  "homepage": "https://github.com/naokikimura/search-dependency#readme"
+}
