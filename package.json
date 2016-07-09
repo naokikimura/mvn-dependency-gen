@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/naokikimura/search-dependency/issues"
   },
-  "homepage": "https://github.com/naokikimura/search-dependency#readme"
+  "homepage": "https://github.com/naokikimura/search-dependency#readme",
+  "dependencies": {
+    "debug": "^2.2.0"
+  }
 }
