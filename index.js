@@ -7,6 +7,7 @@ const http = require('http');
 const path = require('path');
 const querystring = require('querystring');
 const readline = require('readline');
+const request = require('request-promise');
 const util = require('util');
 const xml2js = require('xml2js')
 
@@ -21,16 +22,8 @@ const rl = readline.createInterface({
       const query = { q: `1:"${digest}"`, rows: 20, wt: 'json' };
       const baseurl = 'http://search.maven.org/solrsearch/select';
       const url = `${baseurl}?${querystring.stringify(query)}`;
-      return new Promise((resolve, reject) => http.get(url, resolve).on('error', reject));
-    })
-    .then(response => {
-      return new Promise((resolve, reject) => {
-        const chunks = [];
-        response
-          .on('data', chunks.push.bind(chunks))
-          .on('end', () => resolve(JSON.parse(Buffer.concat(chunks).toString('utf8'))))
-          .on('error', reject);
-      });
+      debug(`url: ${url}`);
+      return request({ uri: url, json: true });
     })
     .then(result => {
       debug(`result: ${result}`);
