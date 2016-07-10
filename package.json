@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "search-dependency": "./index.js"
+  },
   "scripts": {
     "test": "mocha"
   },
