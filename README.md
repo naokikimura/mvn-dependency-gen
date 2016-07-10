@@ -16,7 +16,7 @@ Usage
 ```bash
 {
   echo '<dependencies>';
-  find . -name '*.jar' | env DEBUG= node index.js ;
+  find . -name '*.jar' | search-dependency ;
   echo '</dependencies>';
 } | xmlstarlet fo
 ```
