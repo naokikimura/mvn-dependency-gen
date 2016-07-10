@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const crypto = require('crypto');
-const debug = require('debug')('search-dependency')
+const debug = require('debug')('mvn-dependency-gen')
 const fs = require('fs');
 const http = require('http');
 const path = require('path');

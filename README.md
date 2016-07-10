@@ -1,12 +1,12 @@
-search-dependency
+mvn-dependency-gen
 ====
 
 Installation
 ---
 
 ```bash
-git clone https://github.com/naokikimura/search-dependency.git
-cd search-dependency
+git clone https://github.com/naokikimura/mvn-dependency-gen.git
+cd mvn-dependency-gen
 npm install -g
 ```
 
@@ -16,7 +16,7 @@ Usage
 ```bash
 {
   echo '<dependencies>';
-  find . -name '*.jar' | search-dependency ;
+  find . -name '*.jar' | mvn-dependency-gen;
   echo '</dependencies>';
 } | xmlstarlet fo
 ```

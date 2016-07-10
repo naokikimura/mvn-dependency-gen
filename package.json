@@ -1,24 +1,24 @@
 {
-  "name": "search-dependency",
+  "name": "mvn-dependency-gen",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
-    "search-dependency": "./index.js"
+    "mvn-dependency-gen": "./index.js"
   },
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naokikimura/search-dependency.git"
+    "url": "git+https://github.com/naokikimura/mvn-dependency-gen.git"
   },
   "author": "Naoki Kimura <n.kimura.cap@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/naokikimura/search-dependency/issues"
+    "url": "https://github.com/naokikimura/mvn-dependency-gen/issues"
   },
-  "homepage": "https://github.com/naokikimura/search-dependency#readme",
+  "homepage": "https://github.com/naokikimura/mvn-dependency-gen#readme",
   "dependencies": {
     "debug": "^2.2.0",
     "request-promise": "^3.0.0",
