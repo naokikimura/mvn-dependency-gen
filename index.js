@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const crypto = require('crypto');
 const debug = require('debug')('search-dependency')
 const fs = require('fs');
