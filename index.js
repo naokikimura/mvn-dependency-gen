@@ -44,7 +44,7 @@ const rl = readline.createInterface({
             {
               groupId: [artifactId],
               artifactId: [artifactId],
-              version: [version],
+              version: [version || 'unknown'],
               scope: ['system'],
               systemPath: [systemPath]
             }
