@@ -29,29 +29,15 @@ const rl = readline.createInterface({
       debug(`result: ${result}`);
       const response = result.response || {};
       debug(`numFound: ${response.numFound}`);
-      const dependencies = response.numFound ?
-        response.docs.map(doc => {
-          return {
-            groupId: [doc.g],
-            artifactId: [doc.a],
-            version: [doc.v]
-          }
-        }) : (filename => {
-          const basename = path.basename(filename, '.jar');
-          const [artifactId, version] = basename.split(/-([^-]*$)/, 2);
-          const systemPath = path.isAbsolute(filename) ? filename : ['${basedir}', filename].join(path.sep);
-          return [
-            {
-              groupId: [artifactId],
-              artifactId: [artifactId],
-              version: [version || 'unknown'],
-              scope: ['system'],
-              systemPath: [systemPath]
-            }
-          ];
-        })(filename);
+      const dependencies = response.numFound
+        ? transformToDependency(response.docs)
+        : transformToSystemScopeDependency(filename);
       debug(`dependencies: ${util.inspect(dependencies)}`);
-      const builder = new xml2js.Builder({ rootName: 'dependency', headless: true, renderOpts: { pretty: false } });
+      const builder = new xml2js.Builder({
+        rootName: 'dependency',
+        headless: true,
+        renderOpts: { pretty: false }
+      });
       dependencies.forEach(dependency => console.log(builder.buildObject(dependency)));
     })
     .catch(err => {
@@ -69,4 +55,29 @@ function digest(filename, algorithm, encoding) {
       .on('error', reject)
       .pipe(hash, { end: false });
   });
+}
+
+function transformToDependency(docs) {
+  return docs.map(doc => {
+    return {
+      groupId: [doc.g],
+      artifactId: [doc.a],
+      version: [doc.v]
+    }
+  });
+}
+
+function transformToSystemScopeDependency(filename) {
+  const basename = path.basename(filename, '.jar');
+  const [artifactId, version] = basename.split(/-([^-]*$)/, 2);
+  const systemPath = path.isAbsolute(filename) ? filename : ['${basedir}', filename].join(path.sep);
+  return [
+    {
+      groupId: [artifactId],
+      artifactId: [artifactId],
+      version: [version || 'unknown'],
+      scope: ['system'],
+      systemPath: [systemPath]
+    }
+  ];
 }
