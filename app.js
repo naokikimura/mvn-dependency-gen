@@ -21,9 +21,8 @@ module.exports.generate = line => {
       return request({ uri: url, json: true });
     })
     .then(result => {
-      debug(`result: ${result}`);
+      debug(`result: ${util.inspect(result)}`);
       const response = result.response || {};
-      debug(`numFound: ${response.numFound}`);
       const dependencies = response.numFound
         ? transformToDependency(response.docs)
         : transformToSystemScopeDependency(filename);
