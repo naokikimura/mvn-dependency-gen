@@ -6,12 +6,11 @@ const path = require('path');
 const querystring = require('querystring');
 const request = require('request-promise');
 const util = require('util');
-const xml2js = require('xml2js');
 
 module.exports.generate = line => {
   debug(`Received: ${line}`);
   const filename = line.trim();
-  digest(filename)
+  return digest(filename)
     .then(digest => {
       debug(`SHA1(${filename})= ${digest}`);
       const query = { q: `1:"${digest}"`, rows: 20, wt: 'json' };
@@ -27,17 +26,7 @@ module.exports.generate = line => {
         ? transformToDependency(response.docs)
         : transformToSystemScopeDependency(filename);
       debug(`dependencies: ${util.inspect(dependencies)}`);
-      const builder = new xml2js.Builder({
-        rootName: 'dependency',
-        headless: true,
-        renderOpts: { pretty: false }
-      });
-      dependencies.forEach(dependency => console.log(builder.buildObject(dependency)));
-    })
-    .catch(err => {
-      debug(util.inspect(err));
-      console.error(err.message);
-      process.exit(1);
+      return dependencies;
     });
 };
 
