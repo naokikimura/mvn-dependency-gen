@@ -77,7 +77,7 @@ describe('app#transformToSystemScopeDependency', () => {
       artifactId: ['bar'],
       version: ['0.1.2'],
       scope: ["system"],
-      systemPath: ["${basedir}/./foo/bar-0.1.2.jar"]
+      systemPath: [['${basedir}', '.', 'foo', 'bar-0.1.2.jar'].join(path.sep)]
     }];
     const filename = './foo/bar-0.1.2.jar';
     const actual = app.transformToSystemScopeDependency(filename);
