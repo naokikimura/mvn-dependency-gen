@@ -72,14 +72,14 @@ describe('app#transformToDependency', () => {
 
 describe('app#transformToSystemScopeDependency', () => {
   it('systemスコープのDependencyに変換する', done => {
+    const filename = ['.', 'foo', 'bar-0.1.2.jar'].join(path.sep);
     const expected = [{
       groupId: ['bar'],
       artifactId: ['bar'],
       version: ['0.1.2'],
       scope: ["system"],
-      systemPath: [['${basedir}', '.', 'foo', 'bar-0.1.2.jar'].join(path.sep)]
+      systemPath: [['${basedir}', filename].join(path.sep)]
     }];
-    const filename = './foo/bar-0.1.2.jar';
     const actual = app.transformToSystemScopeDependency(filename);
     expect(actual).to.eql(expected);
     done();
