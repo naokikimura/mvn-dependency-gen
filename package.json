@@ -19,6 +19,10 @@
     "url": "https://github.com/naokikimura/mvn-dependency-gen/issues"
   },
   "homepage": "https://github.com/naokikimura/mvn-dependency-gen#readme",
+  "engineStrict": true,
+  "engines": {
+    "node": "^6.3.0"
+  },
   "dependencies": {
     "debug": "^2.2.0",
     "request-promise": "^3.0.0",
