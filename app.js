@@ -15,7 +15,7 @@ module.exports.generate = (line, options) => {
   debug(`Received: ${line}`);
   const opts = _.merge(defaultOptions, options);
   const filename = line.trim();
-  return (opts.offline ? Promise.resolve({}) : search(filename))
+  return (opts.offline ? Promise.resolve({}) : search(filename, opts))
     .then(result => {
       debug(`result: ${util.inspect(result)}`);
       const response = result.response || {};
@@ -38,7 +38,7 @@ function digest(filename, algorithm, encoding) {
 }
 module.exports.digest = digest;
 
-function search(filename) {
+function search(filename, options) {
   return digest(filename)
     .then(digest => {
       debug(`SHA1(${filename})= ${digest}`);
@@ -46,7 +46,7 @@ function search(filename) {
       const baseurl = 'http://search.maven.org/solrsearch/select';
       const url = `${baseurl}?${querystring.stringify(query)}`;
       debug(`url: ${url}`);
-      return request({ uri: url, json: true });
+      return request({ uri: url, json: true, proxy: options.proxy });
     });
 }
 
