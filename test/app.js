@@ -24,13 +24,26 @@ before(done => {
 });
 
 describe('app#generate', () => {
-  it('SHA1チェックサムを計算する', done => {
+  it('Dependency要素を生成する', done => {
     const expected = [{
       groupId: ['log4j'],
       artifactId: ['log4j'],
       version: ['1.2.17']
     }];
     app.generate(filename).then(actual => {
+      expect(actual).to.eql(expected);
+      done();
+    }).catch(done);
+  });
+  it('オフラインでDependency要素を生成する', done => {
+    const expected = [{
+      groupId: ['log4j'],
+      artifactId: ['log4j'],
+      version: ['1.2.17'],
+      scope: ["system"],
+      systemPath: [[filename].join(path.sep)]
+    }];
+    app.generate(filename, { offline: true }).then(actual => {
       expect(actual).to.eql(expected);
       done();
     }).catch(done);

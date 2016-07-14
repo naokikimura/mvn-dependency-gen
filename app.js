@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const crypto = require('crypto');
 const debug = require('debug')('mvn-dependency-gen:app');
 const fs = require('fs');
@@ -7,18 +8,14 @@ const querystring = require('querystring');
 const request = require('request-promise');
 const util = require('util');
 
-module.exports.generate = line => {
+const defaultOptions = { offline: false };
+module.exports.defaultOptions = defaultOptions;
+
+module.exports.generate = (line, options) => {
   debug(`Received: ${line}`);
+  const opts = _.merge(defaultOptions, options);
   const filename = line.trim();
-  return digest(filename)
-    .then(digest => {
-      debug(`SHA1(${filename})= ${digest}`);
-      const query = { q: `1:"${digest}"`, rows: 20, wt: 'json' };
-      const baseurl = 'http://search.maven.org/solrsearch/select';
-      const url = `${baseurl}?${querystring.stringify(query)}`;
-      debug(`url: ${url}`);
-      return request({ uri: url, json: true });
-    })
+  return (opts.offline ? Promise.resolve({}) : search(filename))
     .then(result => {
       debug(`result: ${util.inspect(result)}`);
       const response = result.response || {};
@@ -40,6 +37,18 @@ function digest(filename, algorithm, encoding) {
   });
 }
 module.exports.digest = digest;
+
+function search(filename) {
+  return digest(filename)
+    .then(digest => {
+      debug(`SHA1(${filename})= ${digest}`);
+      const query = { q: `1:"${digest}"`, rows: 20, wt: 'json' };
+      const baseurl = 'http://search.maven.org/solrsearch/select';
+      const url = `${baseurl}?${querystring.stringify(query)}`;
+      debug(`url: ${url}`);
+      return request({ uri: url, json: true });
+    });
+}
 
 function transformToDependency(docs) {
   return docs.map(doc => {
