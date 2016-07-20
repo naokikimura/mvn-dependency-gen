@@ -1,13 +1,13 @@
 mvn-dependency-gen
 ====
 
+Generate a POM's dependency elements from JAR checksum.
+
 Installation
 ---
 
 ```bash
-git clone https://github.com/naokikimura/mvn-dependency-gen.git
-cd mvn-dependency-gen
-npm install -g
+npm install -g mvn-dependency-gen
 ```
 
 Usage
