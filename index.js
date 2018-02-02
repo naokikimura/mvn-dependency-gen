@@ -9,6 +9,15 @@ const xml2js = require('xml2js');
 
 const app = require('./app');
 
+function load(pom) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(options.pom, (err, xml) => err ? reject(err) : resolve(xml));
+  }).then(xml => new Promise((resolve, reject) => {
+    const parser = new xml2js.Parser();
+    parser.parseString(xml, (err, result) => err ? reject(err) : resolve(result));
+  }));
+}
+
 const options = minimist(process.argv.slice(2), { default: app.defaultOptions });
 debug(`options: ${util.inspect(options)}`);
 
@@ -56,12 +65,3 @@ debug(`options: ${util.inspect(options)}`);
     console.error(err.message);
     process.exit(1);
   });
-
-function load(pom) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(options.pom, (err, xml) => err ? reject(err) : resolve(xml));
-  }).then(xml => new Promise((resolve, reject) => {
-    const parser = new xml2js.Parser();
-    parser.parseString(xml, (err, result) => err ? reject(err) : resolve(result));
-  }));
-}
