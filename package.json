@@ -1,6 +1,6 @@
 {
   "name": "mvn-dependency-gen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate a POM's dependency elements from JAR checksum.",
   "keywords": [
     "maven",
