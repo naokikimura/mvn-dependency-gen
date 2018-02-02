@@ -40,7 +40,7 @@ describe('app#generate', () => {
       groupId: ['log4j'],
       artifactId: ['log4j'],
       version: ['1.2.17'],
-      scope: ["system"],
+      scope: ['system'],
       systemPath: [[filename].join(path.sep)]
     }];
     app.generate(filename, { offline: true }).then(actual => {
@@ -90,7 +90,7 @@ describe('app#transformToSystemScopeDependency', () => {
       groupId: ['bar'],
       artifactId: ['bar'],
       version: ['0.1.2'],
-      scope: ["system"],
+      scope: ['system'],
       systemPath: [['${basedir}', filename].join(path.sep)]
     }];
     const actual = app.transformToSystemScopeDependency(filename);
