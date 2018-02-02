@@ -1,4 +1,17 @@
 language: node_js
-
 node_js:
-  - 6.3.0
+- 6
+script:
+- npm test -- --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage
+  && rm -rf ./coverage
+deploy:
+  provider: npm
+  email: n.kimura.cap@gmail.com
+  api_key:
+    secure: DU0NyKf1Zm1t63Myp5C5mPzRwXkHEkvREWahVVkAt/7CtikObpqgYnNtf31YV605/3oGmmtFgybdqyJwwiGOvikMes5IXsfq+FNDnWwaGkvHRHHhz2V7P6NeG6d20mVFtc5GF4xwPMLcSp+zbYoHeJyvJ35f9zvfxOdzMrnnksPaQD1TRHHZG+6BxOGupyYOyymyGunZUSJUxcJIXyY9OCNMVlxDGa+PAgTYj+i2Rnu/oebbIaT9kL1K1nu2v7E3KRi8mqPVNOVENJfrSzbIk/50ISKSaA5W/avO5RCylSFvvVoL0+rA/IyupP2lB1TAfYePaPWUV7hIMjLwrqtkqFlJiNNgkqrZ3nwQCzinPAutWBRxCf+bK2G+/B5gTAn014aBvdgcgdRSDBP5c+ViNA2Sry+fwiJNm4LfWV9Mh1WlJ3nhIDZuQl80Pmz50U8/zf9rmcTXmggKYmgytSfbi/hjvrGhhXBNKmwVj1DLiKu0ySyXUYvqc9Kjz3dt1SkMSpKItJ2KTEYh+QujAVT0XToKXQH7TLuO3RnzUqgcIYtfiQD4HrYLHr55aPCGUsBIAJkxfYQlBn7nWAlgfa/nFdomTkAPgadwq97ouDdHgiYF/Lj8gNOmvHfmtmCSFXYykOm3FuxcGeLsSPEq9kB3qRCjA0smXmI8CpGFG+kAFsA=
+  on:
+    tags: true
+    repo: naokikimura/mvn-dependency-gen
+notifications:
+  slack:
+    secure: FvHpo0y2YgSLY600CVNems5Klv5JChkK+r3YVZ3UqDYr9Z3JAvO1I2f/mUy17QHZ9L13d5GqEgLYzp4BuwIGdGNO+UaBx6o+ITjjVb4BCjW8ucFCnXE7ULFzEb16wIKeNG2mlpJbO3xPIplj0fWsCquJHSzgqbnG5pddwt0uEdww8fl/iFOS8MQ+U7dDMK6qXy5nHDfmeLI5jPplLTpt8fjCZNO1D7NkdI4Z3NCjVMTn21LGWVqyshKmX8yn72+u2YYGEt6g+0Sp1LIfDD3dOZHk1iu79iuFaImw/ujmWYzx9Y+r9MT64lux4Ip8s4pAlDte21xnMo0ndp3ETZLovrXBkqcRbADkmNre5BIIO/mEjsWvPiGfNXRlEFDaGKiCC1v0bZrY0Rdw1r2gauabf35tljCjyWa8p6L7xTBHXRr4Tu2s49JDamUseC5xb3Ka6Hd5drWLUUM7nwEWplsOMvCA+GitolAHpZz+KPSM9SACdQq1Q/IXihavLY1E6+Y2PxEIEjZ807JanYZnuHZ95mSWuNYyolTg3nOBBBdkiqFIX6RyIzAk/9MdUbOTvVOAuFewWmzs3MI8BA0M//WHbo6JhI1fIg0/ini+K6lB2YeLpVDduHR3wAk+K06eNJuCY9cwlQj2AH3aKmpf2utIJbX22BMVa48IH4EKJXkTK9U=
