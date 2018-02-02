@@ -34,7 +34,7 @@ function load(pom) {
       .on('line', line => {
         const promise = app.generate(line, options)
           .then(pom
-            ? dependencies => dependencies.map(dependency => ({ dependency: dependency }))
+            ? dependencies => dependencies.map(dependency => ({ dependency }))
             : dependencies => {
               dependencies
                 .map(builder.buildObject.bind(builder))
