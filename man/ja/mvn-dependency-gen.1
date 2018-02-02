@@ -1,0 +1,30 @@
+.de URL
+\\$2 \(laURL: \\$1 \(ra\\$3 
+..
+.if \n[.g] .mso www.tmac
+
+.TH mvn-dependency-gen 1
+
+.SH "名前"
+
+mvn\-dependency\-gen \- JARチェックサムからPOMのdependency要素を生成します
+
+.SH "書式"
+
+.B mvn-dependency-gen
+[
+.B "--offline"
+]
+[
+.BI "--pom=" "pom.xml"
+]
+
+.SH "説明"
+
+JARチェックサムからPOMのdependency要素を生成します。
+.URL "http://search.maven.org/" "The Central Repository Search Engine"
+
+.SH "オプション"
+.TP 3
+
+.B \*=offline

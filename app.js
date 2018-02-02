@@ -11,22 +11,6 @@ const util = require('util');
 const defaultOptions = { offline: false };
 module.exports.defaultOptions = defaultOptions;
 
-module.exports.generate = (line, options) => {
-  debug(`Received: ${line}`);
-  const opts = _.merge(defaultOptions, options);
-  const filename = line.trim();
-  return (opts.offline ? Promise.resolve({}) : search(filename, opts))
-    .then(result => {
-      debug(`result: ${util.inspect(result)}`);
-      const response = result.response || {};
-      const dependencies = response.numFound
-        ? transformToDependency(response.docs)
-        : transformToSystemScopeDependency(filename);
-      debug(`dependencies: ${util.inspect(dependencies)}`);
-      return dependencies;
-    });
-};
-
 function digest(filename, algorithm, encoding) {
   return new Promise((resolve, reject) => {
     const hash = crypto.createHash(algorithm || 'sha1');
@@ -56,7 +40,7 @@ function transformToDependency(docs) {
       groupId: [doc.g],
       artifactId: [doc.a],
       version: [doc.v]
-    }
+    };
   });
 }
 module.exports.transformToDependency = transformToDependency;
@@ -76,3 +60,19 @@ function transformToSystemScopeDependency(filename) {
   ];
 }
 module.exports.transformToSystemScopeDependency = transformToSystemScopeDependency;
+
+module.exports.generate = (line, options) => {
+  debug(`Received: ${line}`);
+  const opts = _.merge(defaultOptions, options);
+  const filename = line.trim();
+  return (opts.offline ? Promise.resolve({}) : search(filename, opts))
+    .then(result => {
+      debug(`result: ${util.inspect(result)}`);
+      const response = result.response || {};
+      const dependencies = response.numFound
+        ? transformToDependency(response.docs)
+        : transformToSystemScopeDependency(filename);
+      debug(`dependencies: ${util.inspect(dependencies)}`);
+      return dependencies;
+    });
+};
