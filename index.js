@@ -9,6 +9,9 @@ const xml2js = require('xml2js');
 
 const app = require('./app');
 
+const options = minimist(process.argv.slice(2), { default: app.defaultOptions });
+debug(`options: ${util.inspect(options)}`);
+
 function load(pom) {
   return new Promise((resolve, reject) => {
     fs.readFile(options.pom, (err, xml) => err ? reject(err) : resolve(xml));
@@ -17,9 +20,6 @@ function load(pom) {
     parser.parseString(xml, (err, result) => err ? reject(err) : resolve(result));
   }));
 }
-
-const options = minimist(process.argv.slice(2), { default: app.defaultOptions });
-debug(`options: ${util.inspect(options)}`);
 
 (options.pom ? load(options.pom) : Promise.resolve(null))
   .then(pom => {
